@@ -1,0 +1,25 @@
+{
+  "name": "lldnd",
+  "version": "0.0.1",
+  "private": true,
+  "homepage": ".",
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "^3.4.1",
+    "styled-components": "^5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "install-peers": "^1.0.3"
+  }
+}
