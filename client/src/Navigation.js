@@ -1,4 +1,4 @@
-import React, { useEffect, useGlobal } from "reactn";
+import React, { useGlobal } from "reactn";
 import { Button } from "./styles/styles";
 
 const NavigationMenu = () => {

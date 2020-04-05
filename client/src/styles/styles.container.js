@@ -26,3 +26,42 @@ export const Body = styled.div`
   font-size: ${NORMAL};
   padding: ${NORMAL};
 `;
+
+export const CookiePopup = styled.div`
+  height: 3rem;
+  background-color: rgba(20, 20, 20, 0.8);
+  position: fixed;
+  bottom: 0.2rem;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+`;
+
+export const Flex = styled.div`
+  display: flex;
+  flex-direction: ${(props) => (props.column ? "column" : "row")};
+  justify-content: ${(props) => (props.content ? props.content : "")};
+`;
+
+export const Clickable = styled.div`
+  padding: 0.3rem;
+  width: 100%;
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props) => (props.color ? props.color : BLUE)};
+  }
+`;
+
+export const TextContainer = styled.div`
+  padding: 1rem;
+  padding-top: 0.3rem;
+  position: ${(props) => (props.position ? props.position : "relative")};
+  right: 0;
+  top: 0;
+  bottom: 0;
+`;

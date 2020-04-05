@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { sortedSearch, get } from "../../helpers/index.helpers";
+import { Input } from "../../styles/styles";
+import { Clickable, Flex, TextContainer } from "../../styles/styles.container";
 
 const Spells = () => {
   const [spells, setSpells] = useState(
@@ -28,8 +29,20 @@ const Spells = () => {
       );
   }, [searchedSpell]);
 
-  const _name =
-    searchedSpell.name === "Arcane Hand" ? "Bigby's Hand" : searchedSpell.name;
+  let _name = "";
+
+  switch (searchedSpell.name) {
+    case "Arcane Hand":
+      _name = "Bigby's Hand";
+      break;
+    case "Acid Arrow":
+      _name = "Melf's Acid Arrow";
+      break;
+
+    default:
+      _name = searchedSpell.name;
+      break;
+  }
 
   useEffect(() => {
     searchedSpell !== "" &&
@@ -50,55 +63,47 @@ const Spells = () => {
 
   return (
     <>
-      <input
+      <Input
         onChange={(e) => setSearch(e.currentTarget.value.toLowerCase())}
         placeholder="Search..."
       />
-      <button onClick={() => setShowSpell("")}>SpellList</button>
-      {showSpell && germanSpell ? (
-        <>{renderSpell(showSpell, germanSpell[0])}</>
-      ) : (
+      <Flex>
         <div>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <div style={{ width: "12rem" }}>Name</div>
-            <div>Spellslot Level</div>
-            <div>Classes</div>
-          </div>
           {spells.map((spell) => (
-            <div
-              key={spell.index}
-              style={{ display: "flex", flexDirection: "row" }}
-            >
-              <div
-                style={{
-                  cursor: "pointer",
-                  marginRight: "1rem",
-                  width: "12rem",
-                }}
-                onClick={() => setSearchedSpell(spell)}
-              >
+            <Flex key={spell.index}>
+              <Clickable onClick={() => setSearchedSpell(spell)}>
                 {spell.name}
-              </div>
-              {/* <div style={{ marginRight: "1rem" }}>{`Level: 1`}</div>
-              <div>{`[a,b,c]`}</div> */}
-            </div>
+              </Clickable>
+            </Flex>
           ))}
-          {/* {console.log(spells)} */}
         </div>
-      )}
+        <div>
+          {showSpell && germanSpell
+            ? renderSpell(showSpell, germanSpell[0])
+            : ""}
+        </div>
+      </Flex>
     </>
   );
 };
 
 const renderSpell = (spell, germanSpell) => (
-  <>
+  <TextContainer>
     <div>{`${spell.name} // ${germanSpell.name_de}`}</div>
-    <div>
+    <div style={{ borderBottom: "1px solid black" }}>
+      <p>Description:</p>
       {spell.desc.map((a) => (
-        <div key={a}>{a}</div>
+        <p key={a}>{a}</p>
       ))}
     </div>
-    <div>{spell.higher_level && spell.higher_level}</div>
+    <div>
+      {spell.higher_level && (
+        <div style={{ borderBottom: "1px solid black" }}>
+          <p>Higher Level:</p>
+          <p>{spell.higher_level}</p>
+        </div>
+      )}
+    </div>
     <div>{`Eng: ${spell.page} // DE: ${germanSpell.src_de.book}, ${germanSpell.src_de.book_long}, ${germanSpell.src_de.p}`}</div>
     <div>{spell.range}</div>
     <div>
@@ -123,7 +128,7 @@ const renderSpell = (spell, germanSpell) => (
         <div key={sc.url}>{sc.name}</div>
       ))}
     </div>
-  </>
+  </TextContainer>
 );
 
 export { Spells };
