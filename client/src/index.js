@@ -1,37 +1,22 @@
-import React, { useState } from "react";
+import React, { setGlobal } from "reactn";
 import { render } from "react-dom";
-import { Classes, Spells } from "./components/index.components.js";
+import { Body, NavbarTop, Footer } from "./styles/styles.container";
+import { Pages } from "./Pages";
+import { NavigationMenu } from "./Navigation";
 
-const Home = () => {
-  const [state, setState] = useState();
-  let page = "";
-  switch (state) {
-    case "Spells":
-      page = <Spells />;
-      break;
-    case "Classes":
-      page = <Classes />;
-      break;
-    default:
-      break;
-  }
-  return <>{page ? page : renderButton(setState)}</>;
-};
-
-const renderButton = (_function) => (
-  <>
-    <button onClick={(e) => _function(e.currentTarget.textContent)}>
-      Spells
-    </button>
-    <button onClick={(e) => _function(e.currentTarget.textContent)}>
-      Classes
-    </button>
-  </>
-);
+setGlobal({
+  active: "",
+});
 
 render(
   <>
-    <Home />
+    <NavbarTop>
+      <NavigationMenu />
+    </NavbarTop>
+    <Body>
+      <Pages />
+    </Body>
+    <Footer />
   </>,
   document.getElementById("root")
 );

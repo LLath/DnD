@@ -50,17 +50,8 @@ const Class = (_class) => {
             <div key={st.name}>{st.name}</div>
           ))}
         </div>
-        {startingEq && (
-          <div>
-            Starting Equipment:{" "}
-            <div>
-              {startingEq.starting_equipment.map((v) => (
-                <div>{v}</div>
-              ))}
-            </div>
-            <div>{`Choices to make: ${startingEq.choices_to_make}`}</div>
-          </div>
-        )}
+        {console.log(startingEq)}
+        {startingEq && renderStartingEqChoices(startingEq)}
         <table>
           <thead>
             <td>Level</td>
@@ -131,6 +122,37 @@ const renderSpellSlots = (slot) => {
     }
   };
   return known(slot);
+};
+
+const renderStartingEqChoices = (startingEq) => {
+  const choicesToMake = startingEq.choices_to_make;
+  const renderChoices = () => {
+    let children = [];
+    for (let i = 0; i < choicesToMake; i++) {
+      startingEq[`choice_${i + 1}`].map((v) =>
+        children.push(
+          <div>
+            {`choose ${v.choose} from ${v.from.map(
+              (a) => `${a.item.name} x ${a.quantity}`
+            )}`}
+          </div>
+        )
+      );
+    }
+    return children;
+  };
+  return (
+    <>
+      Starting Equipment:
+      <div>
+        {startingEq.starting_equipment.map((v) => (
+          <div>{`${v.item.name} x ${v.quantity}`}</div>
+        ))}
+      </div>
+      <div>{`Choices to make: ${choicesToMake}`}</div>
+      <div>{renderChoices()}</div>
+    </>
+  );
 };
 
 export { Class };
