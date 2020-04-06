@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const sortedSearch = (_array, _key, _query) => {
+export const sortedSearch = (_array, _key, _query = "") => {
   const _arrayFilter = _array.filter((v) =>
     v[_key].toLowerCase().includes(_query)
   );

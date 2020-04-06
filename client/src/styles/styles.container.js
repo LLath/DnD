@@ -48,15 +48,6 @@ export const Flex = styled.div`
   justify-content: ${(props) => (props.content ? props.content : "")};
 `;
 
-export const Clickable = styled.div`
-  padding: 0.3rem;
-  width: 100%;
-  cursor: pointer;
-  &:hover {
-    background-color: ${(props) => (props.color ? props.color : BLUE)};
-  }
-`;
-
 export const TextContainer = styled.div`
   padding: 1rem;
   padding-top: 0.3rem;
@@ -64,4 +55,6 @@ export const TextContainer = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
+  text-align: justify;
+  hyphens: auto;
 `;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { sortedSearch, get } from "../../helpers/index.helpers";
-import { Input } from "../../styles/styles";
-import { Clickable, Flex, TextContainer } from "../../styles/styles.container";
+import { Clickable, Input, Button } from "../../styles/styles";
+import { Flex, TextContainer } from "../../styles/styles.container";
 
 const Spells = () => {
   const [spells, setSpells] = useState(
@@ -12,6 +12,8 @@ const Spells = () => {
   const [germanSpell, setGermanSpell] = useState("");
   const [search, setSearch] = useState("");
   const [copySpells] = useState([...spells]);
+  const [checkedSpell, setCheckedSpell] = useState("");
+  const [spellList, setSpellList] = useState([]);
 
   useEffect(() => {
     get(
@@ -61,6 +63,19 @@ const Spells = () => {
     setSpells(sortedSearch(copySpells, "name", search));
   }, [copySpells, search]);
 
+  useEffect(() => {
+    const _function = (data) => setSpellList([...spellList, data]);
+    checkedSpell &&
+      get(
+        `${process.env.REACT_APP_LOCAL_PROXY}http://dnd5eapi.co${checkedSpell.url}`,
+        _function
+      );
+  }, [checkedSpell]);
+
+  useEffect(() => {
+    console.log(spellList);
+  }, [spellList.length]);
+
   return (
     <>
       <Input
@@ -70,10 +85,14 @@ const Spells = () => {
       <Flex>
         <div>
           {spells.map((spell) => (
-            <Flex key={spell.index}>
+            <Flex key={spell.index} row>
               <Clickable onClick={() => setSearchedSpell(spell)}>
                 {spell.name}
               </Clickable>
+              {/* TODO: redesign */}
+              <Button size="small" onClick={() => setCheckedSpell(spell)}>
+                ✔
+              </Button>
             </Flex>
           ))}
         </div>
@@ -104,23 +123,32 @@ const renderSpell = (spell, germanSpell) => (
         </div>
       )}
     </div>
-    <div>{`Eng: ${spell.page} // DE: ${germanSpell.src_de.book}, ${germanSpell.src_de.book_long}, ${germanSpell.src_de.p}`}</div>
-    <div>{spell.range}</div>
-    <div>
-      {spell.components.map((component) => (
-        <div key={component}>{component}</div>
-      ))}
+    <div style={{ borderBottom: "1px solid black", paddingBottom: "1rem" }}>
+      <p>{`Find it in: `}</p>
+      <div>{`Eng: ${spell.page}`}</div>
+      <div>{`DE: ${germanSpell.src_de.book}, ${germanSpell.src_de.book_long}, ${germanSpell.src_de.p}`}</div>
     </div>
-    <div>{spell.material}</div>
-    <div>{spell.ritual}</div>
-    <div>{spell.duration}</div>
-    <div>{spell.concentration}</div>
-    <div>{spell.casting_time}</div>
+    <p>{`Range: ${spell.range}`}</p>
+    <div style={{ paddingBottom: "1rem" }}>
+      <div>Material:</div>
+      {spell.components.map((component, index) => (
+        <span key={component}>{`${component}${
+          index < spell.components.length - 1 ? "," : ""
+        }`}</span>
+      ))}
+      <div>{spell.material}</div>
+    </div>
+    <div>{spell.ritual && "Ritual"}</div>
+    <div>Duration:{spell.duration}</div>
+    <div>Concentration:{spell.concentration}</div>
+    <div>Casting time:{spell.casting_time}</div>
     <div>{`Level: ${spell.level}`}</div>
-    <div>{spell.school.name}</div>
+    <div>Spell school:{spell.school.name}</div>
     <div>
-      {spell.classes.map((_class) => (
-        <div key={_class.url}>{_class.name}</div>
+      {spell.classes.map((_class, index) => (
+        <span key={_class.url}>{`${_class.name}${
+          index < spell.classes.length - 1 ? "," : ""
+        }`}</span>
       ))}
     </div>
     <div>
