@@ -26,7 +26,7 @@ const size = (_size) => {
 export const Button = styled.button`
   border: 0px solid transparent;
   background-color: transparent;
-  color: ${TEXT_COLOR};
+  color: ${(props) => (props.checked ? "black" : TEXT_COLOR)};
   font-weight: bolder;
   cursor: pointer;
   &:hover {

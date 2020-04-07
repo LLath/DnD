@@ -72,10 +72,6 @@ const Spells = () => {
       );
   }, [checkedSpell]);
 
-  useEffect(() => {
-    console.log(spellList);
-  }, [spellList.length]);
-
   return (
     <>
       <Input
@@ -90,7 +86,17 @@ const Spells = () => {
                 {spell.name}
               </Clickable>
               {/* TODO: redesign */}
-              <Button size="small" onClick={() => setCheckedSpell(spell)}>
+              <Button
+                size="small"
+                onClick={() => {
+                  if (spellList.map((v) => v.name).includes(spell.name)) {
+                    spellList.splice(spellList.indexOf(checkedSpell), 1);
+                  } else {
+                    setCheckedSpell(spell);
+                  }
+                }}
+                checked={spellList.map((v) => v.name).includes(spell.name)}
+              >
                 ✔
               </Button>
             </Flex>

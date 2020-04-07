@@ -2,8 +2,9 @@
   "name": "lldnd",
   "version": "0.0.1",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://LLath.github.io/DnD",
   "dependencies": {
+    "gh-pages": "^2.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -12,7 +13,10 @@
     "styled-components": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
