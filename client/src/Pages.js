@@ -1,5 +1,5 @@
 import React, { useGlobal } from "reactn";
-import { Classes, Spells } from "./components/index.components.js";
+import { Character, Classes, Spells } from "./components/index.components.js";
 
 const Pages = () => {
   let [active] = useGlobal("active");
@@ -9,6 +9,8 @@ const Pages = () => {
       return <Spells />;
     case "Classes":
       return <Classes />;
+    case "Character":
+      return <Character />;
     default:
       return <div></div>;
   }

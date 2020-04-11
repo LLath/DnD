@@ -7,6 +7,7 @@ export const NavbarTop = styled.div`
   top: 0;
   display: flex;
   flex-direction: row;
+  padding-left: 1rem;
   background-color: ${BLUE};
 `;
 

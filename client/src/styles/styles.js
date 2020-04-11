@@ -37,6 +37,7 @@ export const Button = styled.button`
     outline: none;
   }
   padding: ${(props) => size(props.size)};
+  width: 5rem;
 `;
 
 export const Input = styled.input`

@@ -2,7 +2,7 @@
   "name": "lldnd",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://LLath.github.io/DnD",
+  "homepage": ".",
   "dependencies": {
     "gh-pages": "^2.2.0",
     "prop-types": "^15.7.2",

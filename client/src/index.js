@@ -11,7 +11,7 @@ import { Pages } from "./Pages";
 import { NavigationMenu } from "./Navigation";
 
 setGlobal({
-  active: "Spells",
+  active: "Character",
   mode: localStorage.getItem("Mode"),
 });
 

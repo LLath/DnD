@@ -5,7 +5,7 @@ import { Flex, TextContainer } from "../../styles/styles.container";
 
 const Spells = () => {
   const [spells, setSpells] = useState(
-    JSON.parse(localStorage.getItem("Spells"))
+    JSON.parse(localStorage.getItem("Spells")) || []
   );
   const [searchedSpell, setSearchedSpell] = useState("");
   const [showSpell, setShowSpell] = useState("");
@@ -66,6 +66,7 @@ const Spells = () => {
   useEffect(() => {
     const _function = (data) => setSpellList([...spellList, data]);
     checkedSpell &&
+      !spellList.map((v) => v.name).includes(checkedSpell.name) &&
       get(
         `${process.env.REACT_APP_LOCAL_PROXY}http://dnd5eapi.co${checkedSpell.url}`,
         _function
@@ -80,6 +81,7 @@ const Spells = () => {
       />
       <Flex>
         <div>
+          {console.log(spellList.length)}
           {spells.map((spell) => (
             <Flex key={spell.index} row>
               <Clickable onClick={() => setSearchedSpell(spell)}>
@@ -88,13 +90,7 @@ const Spells = () => {
               {/* TODO: redesign */}
               <Button
                 size="small"
-                onClick={() => {
-                  if (spellList.map((v) => v.name).includes(spell.name)) {
-                    spellList.splice(spellList.indexOf(checkedSpell), 1);
-                  } else {
-                    setCheckedSpell(spell);
-                  }
-                }}
+                onClick={() => setCheckedSpell(spell)}
                 checked={spellList.map((v) => v.name).includes(spell.name)}
               >
                 ✔
